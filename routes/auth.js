@@ -96,12 +96,10 @@ router.post('/login', [
     //sending token
     res.cookie("token", token, { maxAge: 600000 });
     res.cookie("loggedInTime", Date.now(), { maxAge: 600000 });
-    res.cookie("isProfileCompleted", user.isProfileCompleted);
     res.cookie("isEmailVerified", user.isEmailVerified);
     res.json({
       token,
       isEmailVerified: user.isEmailVerified,
-      isProfileCompleted: user.isProfileCompleted,
     });
   } catch (error) {
     console.log(error);
@@ -113,7 +111,7 @@ router.post('/login', [
 
 // ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
 
-router.post('/getuser', fetchuser,  async (req, res) => {
+router.post('/getuser', fetchUser,  async (req, res) => {
 
   try {
     userId = req.user.id;
@@ -134,8 +132,6 @@ router.post("/logout", fetchUser, async (req, res) => {
     res.clearCookie("token");
     res.clearCookie("loggedInTime");
     res.clearCookie("isEmailVerified");
-    res.clearCookie("isMobileVerified");
-    res.clearCookie("isProfileCompleted");
     res.json({ message: "Logged out User" });
   } catch (error) {
     console.log(error.message);

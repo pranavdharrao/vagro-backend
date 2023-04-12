@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const { validateEmail }=require('../modules/validation')
+
 
 const UserSchema = new Schema({
     name: {
@@ -23,11 +25,12 @@ const UserSchema = new Schema({
             message: "Please provide a valid email",
         },
     },
-    isProfileCompleted: { type: Boolean, default: false },
     isEmailVerified: { type: Boolean, default: false },
     
 });
 
 const User = mongoose.model("user", UserSchema);
-User.createIndexes();
+// User.createIndexes();
+// User.createIndexes({ maxTimeMS: 60000 });
+
 module.exports = User;
