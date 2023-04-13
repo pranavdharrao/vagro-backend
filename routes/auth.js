@@ -5,6 +5,7 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const fetchUser = require("../middleware/fetchUser");
+const dotenv = require("dotenv");
 
 const jwtkey = process.env.JWT_SECRET_KEY;
 
