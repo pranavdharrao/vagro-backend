@@ -1,36 +1,36 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
-const { validateEmail }=require('../modules/validation')
+const { validateEmail } = require("../modules/validation");
 
-
-const UserSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    dateCreated: {
-        type: Date,
-        default: Date.now
-    },
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        validate: {
-            validator: validateEmail,
-            message: "Please provide a valid email",
-        },
-    },
-    isEmailVerified: { type: Boolean, default: false },
-    
+const userSchema = new mongoose.Schema({
+  fullname: {
+    type: String,
+    required: true,
+  },
+  contactno: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: "Email address is required",
+    validate: [validateEmail, "Please fill a valid email address"],
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      "Please fill a valid email address",
+    ],
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
-const User = mongoose.model("user", UserSchema);
-// User.createIndexes();
-// User.createIndexes({ maxTimeMS: 60000 });
-
-module.exports = User;
+const user = mongoose.model("user", userSchema);
+module.exports = user;
